@@ -14,7 +14,8 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        return view('comments');
+        $comments = Comment::orderBy('created_at', 'asc')->get();
+        return view('comments', ['comments'=>$comments]);
     }
 
     /**
@@ -37,6 +38,17 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, ['message' => 'required|min:10|max:255',]);
+        if (\Auth::user() == null){
+            return view('home');
+        }
+
+        $comment = new Comment();
+        $comment->user_id = \Auth::user()->id;
+        $comment->message = $request->message;
+        if ($comment->save()){
+            return redirect('comments');
+        }
+        return view('comments');
     }
 
     /**

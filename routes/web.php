@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/comments', [CommentsController::class, 'index'])->name('comments');
 Route::get('/create', [CommentsController::class, 'create'])->name('create');
 Route::post('/create', [CommentsController::class, 'store'])->name('store');
