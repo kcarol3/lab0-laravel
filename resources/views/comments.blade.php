@@ -33,6 +33,8 @@
         }
     </style>
 </head>
+@include('layouts.navbar')
+
 <body>
 <div class="table-container">
     <div class="title">

@@ -33,6 +33,7 @@
         }
     </style>
 </head>
+@include('layouts.navbar')
 <body>
 <div class="table-container">
     <div class="title"> <h3>Księga komentarzy</h3> </div>
