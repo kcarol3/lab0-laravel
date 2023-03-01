@@ -30,5 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/comments', [CommentsController::class, 'index'])->name('comments');
+Route::get('/create', [CommentsController::class, 'create'])->name('create');
+Route::post('/create', [CommentsController::class, 'store'])->name('store');
 
 require __DIR__.'/auth.php';
