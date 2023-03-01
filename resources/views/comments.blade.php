@@ -61,6 +61,10 @@
             </tr>
             </tbody>
         </table>
+        <div class="text-center py-4">
+            <a href="{{ route('create') }}" class="btn btn-secondary">Dodaj</a>
+        </div>
+
         <br>
     @endauth
 </div>

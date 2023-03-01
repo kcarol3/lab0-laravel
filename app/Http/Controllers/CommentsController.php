@@ -24,7 +24,8 @@ class CommentsController extends Controller
      */
     public function create()
     {
-        return view('commentsForm');
+        $comment = new Comment();
+        return view('commentsForm', ['comment'=> $comment]);
     }
 
     /**
@@ -35,7 +36,7 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, ['message' => 'required|min:10|max:255',]);
     }
 
     /**
