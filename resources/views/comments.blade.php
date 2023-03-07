@@ -56,7 +56,17 @@
                 <td>{{$comment->id}}</td>
                 <td>{{$comment->user->name}}</td>
                 <td>{{$comment->created_at}}</td>
-                <td>{{$comment->message}}</td>
+                <td>{{$comment->message}}
+                    <br /> @if($comment->user_id == \Auth::user()->id)
+                        <a href="{{ route('edit', $comment) }}" class="btn btn-success btn-xs"
+                           title="Edytuj"> Edytuj </a>
+                        <a href="{{ route('delete', $comment->id) }}"
+                           class="btn btn-danger btn-xs"
+                           onclick="return confirm('Jesteś pewien?')"
+                           title="Skasuj"> Usuń
+                        </a>
+                    @endif
+                </td>
             </tr>@endforeach
             </tbody>
         </table>

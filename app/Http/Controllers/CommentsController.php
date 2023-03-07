@@ -70,7 +70,13 @@ class CommentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::find($id);
+        //Sprawdzenie czy użytkownik jest autorem komentarza
+        if (\Auth::user()->id != $comment->user_id) {
+            return back()->with(['success' => false, 'message_type' => 'danger',
+                'message' => 'Nie posiadasz uprawnień do przeprowadzenia tej operacji.']);
+        }
+        return view('commentsEditForm', ['comment'=>$comment]);
     }
 
     /**
@@ -82,7 +88,18 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::find($id);
+
+        if(\Auth::user()->id != $comment->user_id)
+        {
+            return back()->with(['success' => false, 'message_type' => 'danger',
+                'message' => 'Nie posiadasz uprawnień do przeprowadzenia tej operacji.']);
+        }
+        $comment->message = $request->message;
+        if($comment->save()) {
+            return redirect()->route('comments');
+        }
+        return "Wystąpił błąd.";
     }
 
     /**
@@ -93,6 +110,16 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Znajdź komentarz o danych id:
+        $comment = Comment::find($id);
+        //Sprawdz czy użytkownik jest autorem komentarza:
+        if(\Auth::user()->id != $comment->user_id)
+        {
+            return back();
+        }
+        if($comment->delete()){
+            return redirect()->route('comments');
+        }
+        else return back();
     }
 }
